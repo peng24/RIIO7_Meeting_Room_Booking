@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>📆 จองห้องประชุม</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label,
+        input,
+        select,
+        textarea {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>📆 ฟอร์มจองห้องประชุม</h2>
+    <form id="bookingForm">
+        <label>ชื่อผู้จอง: <input type="text" id="name" required></label>
+        <label>เบอร์โทร: <input type="tel" id="phone" required></label>
+        <label>ห้องประชุม:
+            <select id="room">
+                <option>ห้อง A</option>
+                <option>ห้อง B</option>
+                <option>ห้อง C</option>
+            </select>
+        </label>
+        <label>รูปแบบประชุม:
+            <select id="meetingType">
+                <option>ประชุมธรรมดา</option>
+                <option>Zoom</option>
+                <option>อื่นๆ</option>
+            </select>
+        </label>
+        <label>รายละเอียดเพิ่มเติม: <textarea id="details"></textarea></label>
+        <label>วันที่และเวลา: <input type="datetime-local" id="dateTime" required></label>
+        <button type="submit">จอง</button>
+    </form>
+
+    <script>
+        document.getElementById("bookingForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById("name").value,
+                phone: document.getElementById("phone").value,
+                room: document.getElementById("room").value,
+                meetingType: document.getElementById("meetingType").value,
+                details: document.getElementById("details").value,
+                dateTime: document.getElementById("dateTime").value
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbwiGOSTJ2MhQnTOpa97RhN1CUt-djfq_JALFXuC75LTKhe8t7otOmp_kWYF7J-05yqSyA/exec", {  // 👉 แทนที่ด้วย URL จาก Apps Script
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" }
+            }).then(() => alert("✅ จองสำเร็จ!"));
+        });
+    </script>
+</body>
+
+</html>
